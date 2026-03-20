@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Netcol VPN — Internet Ilimitado</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<canvas id="network"></canvas>
+
+<!-- NAV -->
+<header class="navbar">
+  <a class="nav-logo" href="#inicio">
+    <img class="nav-logo-icon" src="assets/icon.png" alt="Netcol">
+    <span class="nav-logo-text">Net<span>col</span></span>
+  </a>
+  <nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#beneficios">Beneficios</a>
+    <a href="#como">Cómo funciona</a>
+    <a href="#app">App</a>
+    <a href="https://play.google.com/store/apps/details?id=com.netcol.vpn" target="_blank" class="nav-cta">Descargar</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <img src="assets/icon.png" style="width:18px;height:18px;border-radius:4px;object-fit:cover;"> Disponible en Google Play
+    </div>
+
+    <h1>Internet <span class="gradient-text">Ilimitado<br>& Seguro</span></h1>
+
+    <p class="hero-sub">Navega sin bloqueos, sin límites y sin configuraciones. Conéctate en segundos desde cualquier lugar de Colombia.</p>
+
+    <div class="hero-counter">
+      <div class="counter-dot"></div>
+      <span><strong id="users">1,247</strong> usuarios conectados ahora mismo</span>
+    </div>
+
+    <div class="cta-buttons">
+      <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.netcol.vpn" target="_blank">
+        <span>▶</span> Descargar en Google Play
+      </a>
+      <button class="btn-secondary" onclick="document.getElementById('beneficios').scrollIntoView({behavior:'smooth'})">
+        <span>↓</span> Ver beneficios
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats reveal">
+  <div class="stat-item">
+    <div class="stat-number">10K+</div>
+    <div class="stat-label">Descargas activas</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">99.9%</div>
+    <div class="stat-label">Uptime garantizado</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">0ms</div>
+    <div class="stat-label">Configuración requerida</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">4.8★</div>
+    <div class="stat-label">Calificación en Play Store</div>
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<section class="benefits" id="beneficios">
+  <div class="benefits-inner">
+    <div class="benefits-header">
+      <div>
+        <div class="section-tag">Beneficios</div>
+        <h2 class="section-title">¿Por qué elegir<br>Netcol VPN?</h2>
+      </div>
+      <p class="section-sub">Todo lo que necesitas para una conexión libre, rápida y segura en un solo lugar.</p>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-card reveal">
+        <div class="benefit-icon icon-cyan">🚀</div>
+        <div class="benefit-title">Alta Velocidad</div>
+        <p class="benefit-desc">Conexión optimizada para streaming, gaming y navegación sin interrupciones ni throttling.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon icon-purple">🔒</div>
+        <div class="benefit-title">Conexión Cifrada</div>
+        <p class="benefit-desc">Tus datos viajan protegidos con cifrado de grado militar. Nadie puede interceptar tu tráfico.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon icon-green">🌍</div>
+        <div class="benefit-title">Sin Restricciones</div>
+        <p class="benefit-desc">Accede a cualquier contenido sin importar tu operador. Salta bloqueos regionales fácilmente.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon icon-orange">⚡</div>
+        <div class="benefit-title">Un Toque, Listo</div>
+        <p class="benefit-desc">Sin configuraciones complicadas. Abre la app, conecta y navega. Así de simple.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon icon-pink">📱</div>
+        <div class="benefit-title">Liviana y Estable</div>
+        <p class="benefit-desc">Diseñada para no consumir batería ni datos extras. Funciona en cualquier dispositivo Android.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon icon-blue">🎯</div>
+        <div class="benefit-title">Soporte Local</div>
+        <p class="benefit-desc">Equipo en Colombia disponible para ayudarte. Respuesta rápida por WhatsApp cuando lo necesitas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="como">
+  <div class="how-inner">
+    <div class="how-header reveal">
+      <div class="section-tag">Cómo funciona</div>
+      <h2 class="section-title">Conéctate en 3 pasos</h2>
+      <p class="section-sub" style="margin: 0 auto;">Sin tecnicismos. Sin configuraciones. En menos de 30 segundos estás navegando libre.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-icon">📲</div>
+        <div class="step-title">Descarga la app</div>
+        <p class="step-desc">Disponible gratis en Google Play Store para Android.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div class="step-icon">🔑</div>
+        <div class="step-title">Activa tu plan</div>
+        <p class="step-desc">Compra tu acceso y recibe tus credenciales al instante.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div class="step-icon">🌐</div>
+        <div class="step-title">Navega libre</div>
+        <p class="step-desc">Un toque y estás conectado. Sin límites, sin restricciones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APP SECTION -->
+<section class="app-section" id="app">
+  <div class="app-inner">
+    <div class="app-text reveal">
+      <div class="section-tag">La App</div>
+      <h2 class="section-title">Diseñada para<br>ser simple</h2>
+      <p class="section-sub">Sin menus complicados, sin configuraciones técnicas. NETCOL fue creada pensando en el usuario colombiano.</p>
+
+      <div class="app-features">
+        <div class="app-feature">Interfaz limpia y fácil de usar</div>
+        <div class="app-feature">Conexión automática al abrir</div>
+        <div class="app-feature">Indicador de velocidad en tiempo real</div>
+        <div class="app-feature">Compatible con Android 5.0 en adelante</div>
+        <div class="app-feature">Actualizaciones automáticas incluidas</div>
+      </div>
+
+      <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.netcol.vpn" target="_blank">
+        ▶ Descargar en Google Play
+      </a>
+    </div>
+
+    <div class="app-visual reveal">
+      <div class="phone-mockup">
+        <div class="phone-screen-content">
+          <div class="phone-status">● CONECTADO</div>
+          <img src="assets/icon.png" alt="Netcol" style="width:56px;height:56px;border-radius:16px;object-fit:cover;box-shadow:0 0 20px rgba(0,229,255,0.3);">
+          <div class="phone-connected">Protegido</div>
+          <div class="phone-speed">
+            <div class="phone-speed-item">
+              <div class="phone-speed-val">↑ 48</div>
+              <div class="phone-speed-label">Mbps</div>
+            </div>
+            <div class="phone-speed-item">
+              <div class="phone-speed-val">↓ 92</div>
+              <div class="phone-speed-label">Mbps</div>
+            </div>
+          </div>
+          <div class="phone-bar">
+            <div class="phone-bar-fill"></div>
+          </div>
+          <button class="phone-btn">Desconectar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="cta-card reveal">
+    <div class="section-tag">Empieza hoy</div>
+    <h2 class="section-title">¿Listo para navegar<br>sin límites? 🔥</h2>
+    <p class="section-sub">Únete a miles de usuarios en Colombia que ya disfrutan de internet ilimitado con NETCOL.</p>
+    <div class="cta-buttons-group">
+      <a class="btn-primary"
