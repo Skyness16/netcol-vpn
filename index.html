@@ -1,6 +1,3 @@
-Netcol vpn v2 · HTML
-Copiar
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,1316 +5,51 @@ Copiar
   <title>Netcol VPN — Internet Ilimitado</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-  <style>
- 
-    /* ════════════════════════════════════════
-       VARIABLES & RESET
-    ════════════════════════════════════════ */
-    :root {
-      --bg:           #060910;
-      --bg2:          #0b1120;
-      --accent:       #00e5ff;
-      --accent2:      #7b61ff;
-      --accent3:      #00ff94;
-      --accent4:      #ff6b6b;
-      --text:         #e8edf5;
-      --muted:        #6b7a99;
-      --card:         rgba(255,255,255,0.04);
-      --card-border:  rgba(0,229,255,0.12);
-      --glow:         0 0 40px rgba(0,229,255,0.25);
-    }
- 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
- 
-    body {
-      font-family: 'Space Grotesk', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-    }
- 
-    /* ════════════════════════════════════════
-       CANVAS
-    ════════════════════════════════════════ */
-    #network {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-    }
- 
-    /* ════════════════════════════════════════
-       NAVBAR
-    ════════════════════════════════════════ */
-    .navbar {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 60px;
-      background: rgba(6,9,16,0.7);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(0,229,255,0.08);
-      transition: padding 0.3s, background 0.3s;
-    }
- 
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
- 
-    .nav-logo-icon {
-      width: 36px; height: 36px;
-      border-radius: 10px;
-      object-fit: cover;
-    }
- 
-    .nav-logo-text {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: white;
-      letter-spacing: -0.5px;
-    }
- 
-    .nav-logo-text span { color: var(--accent); }
- 
-    nav { display: flex; align-items: center; gap: 8px; }
- 
-    nav a {
-      color: var(--muted);
-      text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
- 
-    nav a:hover { color: white; background: rgba(255,255,255,0.06); }
- 
-    .nav-cta {
-      background: linear-gradient(135deg, var(--accent), var(--accent2)) !important;
-      color: #060910 !important;
-      font-weight: 600 !important;
-    }
- 
-    .nav-cta:hover {
-      opacity: 0.9;
-      transform: translateY(-1px);
-      box-shadow: var(--glow);
-    }
- 
-    /* ════════════════════════════════════════
-       HERO
-    ════════════════════════════════════════ */
-    .hero {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 120px 20px 80px;
-    }
- 
-    .hero-inner { max-width: 780px; }
- 
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(0,229,255,0.08);
-      border: 1px solid rgba(0,229,255,0.2);
-      border-radius: 100px;
-      padding: 6px 16px;
-      font-size: 0.8rem;
-      color: var(--accent);
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.2s forwards;
-    }
- 
-    .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -2px;
-      margin-bottom: 24px;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.4s forwards;
-    }
- 
-    .gradient-text {
-      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
- 
-    .hero-sub {
-      font-size: 1.15rem;
-      color: var(--muted);
-      max-width: 500px;
-      margin: 0 auto 40px;
-      line-height: 1.7;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.6s forwards;
-    }
- 
-    .hero-counter {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(0,255,148,0.06);
-      border: 1px solid rgba(0,255,148,0.2);
-      border-radius: 12px;
-      padding: 10px 20px;
-      margin-bottom: 40px;
-      font-size: 0.9rem;
-      color: var(--accent3);
-      opacity: 0;
-      animation: fadeUp 0.8s 0.7s forwards;
-    }
- 
-    .counter-dot {
-      width: 8px; height: 8px;
-      background: var(--accent3);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--accent3);
-      animation: pulse 1.2s infinite;
-    }
- 
-    #users { font-weight: 700; font-size: 1.1rem; }
- 
-    .cta-buttons {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.9s forwards;
-    }
- 
-    /* ════════════════════════════════════════
-       BOTONES
-    ════════════════════════════════════════ */
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: #060910;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 0.95rem;
-      border: none;
-      padding: 14px 32px;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-decoration: none;
-    }
- 
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 50px rgba(0,229,255,0.4);
-    }
- 
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--text);
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 600;
-      font-size: 0.95rem;
-      border: 1px solid rgba(255,255,255,0.15);
-      padding: 14px 32px;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-decoration: none;
-    }
- 
-    .btn-secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-3px);
-      background: rgba(0,229,255,0.05);
-    }
- 
-    /* ════════════════════════════════════════
-       STATS
-    ════════════════════════════════════════ */
-    .stats {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: center;
-      padding: 0 20px 100px;
-      flex-wrap: wrap;
-    }
- 
-    .stat-item {
-      padding: 30px 50px;
-      text-align: center;
-      border-right: 1px solid rgba(255,255,255,0.06);
-    }
- 
-    .stat-item:last-child { border-right: none; }
- 
-    .stat-number {
-      font-family: 'Syne', sans-serif;
-      font-size: 2.5rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
- 
-    .stat-label {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-top: 4px;
-      font-weight: 500;
-    }
- 
-    /* ════════════════════════════════════════
-       SECCIONES COMUNES
-    ════════════════════════════════════════ */
-    section { position: relative; z-index: 1; }
- 
-    .section-tag {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 14px;
-    }
- 
-    .section-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 800;
-      letter-spacing: -1px;
-      line-height: 1.1;
-      margin-bottom: 16px;
-    }
- 
-    .section-sub {
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.7;
-      max-width: 500px;
-    }
- 
-    /* ════════════════════════════════════════
-       BENEFITS — Banner + Cards iOS-style
-    ════════════════════════════════════════ */
-    .benefits {
-      padding: 100px 60px;
-      background: linear-gradient(180deg, transparent, rgba(11,17,32,0.8), transparent);
-    }
- 
-    .benefits-inner { max-width: 1100px; margin: 0 auto; }
- 
-    /* Banner de privacidad */
-    .privacy-banner {
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(135deg, rgba(0,229,255,0.08), rgba(123,97,255,0.12));
-      border: 1px solid rgba(0,229,255,0.2);
-      border-radius: 28px;
-      padding: 56px 60px;
-      margin-bottom: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
-      flex-wrap: wrap;
-    }
- 
-    .privacy-banner::before {
-      content: '';
-      position: absolute;
-      top: -80px; right: -80px;
-      width: 320px; height: 320px;
-      background: radial-gradient(circle, rgba(0,229,255,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
- 
-    .privacy-banner::after {
-      content: '';
-      position: absolute;
-      bottom: -60px; left: -60px;
-      width: 240px; height: 240px;
-      background: radial-gradient(circle, rgba(123,97,255,0.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
- 
-    .privacy-banner-left { position: relative; z-index: 1; max-width: 520px; }
- 
-    .privacy-banner-icon {
-      font-size: 3rem;
-      margin-bottom: 16px;
-      display: block;
-    }
- 
-    .privacy-banner-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -1px;
-      margin-bottom: 14px;
-    }
- 
-    .privacy-banner-desc {
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.7;
-    }
- 
-    .privacy-banner-right {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      min-width: 220px;
-    }
- 
-    .privacy-pill {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 14px;
-      padding: 14px 18px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      transition: all 0.3s;
-    }
- 
-    .privacy-pill:hover {
-      background: rgba(0,229,255,0.08);
-      border-color: rgba(0,229,255,0.2);
-      transform: translateX(4px);
-    }
- 
-    .privacy-pill-icon {
-      width: 36px; height: 36px;
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
- 
-    /* Banner datos ilimitados */
-    .unlimited-banner {
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(135deg, rgba(0,255,148,0.06), rgba(0,229,255,0.06));
-      border: 1px solid rgba(0,255,148,0.18);
-      border-radius: 28px;
-      padding: 50px 60px;
-      margin-bottom: 60px;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 30px;
-      align-items: center;
-    }
- 
-    .unlimited-banner::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent 0%, rgba(0,255,148,0.03) 50%, transparent 100%);
-      animation: shimmer 3s ease-in-out infinite;
-      pointer-events: none;
-    }
- 
-    @keyframes shimmer {
-      0%, 100% { opacity: 0; }
-      50% { opacity: 1; }
-    }
- 
-    .unlimited-main { position: relative; z-index: 1; }
- 
-    .unlimited-main .section-tag { color: var(--accent3); }
- 
-    .unlimited-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1.5rem, 2.5vw, 2.2rem);
-      font-weight: 800;
-      letter-spacing: -1px;
-      line-height: 1.15;
-      margin-bottom: 12px;
-    }
- 
-    .unlimited-title span { color: var(--accent3); }
- 
-    .unlimited-desc {
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.6;
-    }
- 
-    .unlimited-price-card {
-      position: relative;
-      z-index: 1;
-      background: rgba(0,255,148,0.06);
-      border: 1px solid rgba(0,255,148,0.2);
-      border-radius: 20px;
-      padding: 28px 24px;
-      text-align: center;
-    }
- 
-    .price-tag {
-      font-family: 'Syne', sans-serif;
-      font-size: 2.8rem;
-      font-weight: 800;
-      color: var(--accent3);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
- 
-    .price-period {
-      font-size: 0.8rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 16px;
-    }
- 
-    .price-features {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      text-align: left;
-    }
- 
-    .price-feature {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
- 
-    .price-feature::before {
-      content: '✓';
-      color: var(--accent3);
-      font-weight: 700;
-      font-size: 0.75rem;
-    }
- 
-    .unlimited-cta {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-    }
- 
-    .unlimited-cta-text {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 800;
-      text-align: center;
-      line-height: 1.3;
-    }
- 
-    .unlimited-cta-sub {
-      font-size: 0.85rem;
-      color: var(--muted);
-      text-align: center;
-    }
- 
-    /* Benefits grid iOS-style */
-    .benefits-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
- 
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
- 
-    /* iOS-style card */
-    .benefit-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 22px;
-      padding: 28px 24px;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(10px);
-    }
- 
-    .benefit-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
-      pointer-events: none;
-    }
- 
-    .benefit-card:hover {
-      transform: translateY(-6px) scale(1.01);
-      border-color: rgba(0,229,255,0.25);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.4), 0 0 30px rgba(0,229,255,0.06);
-    }
- 
-    .benefit-card.featured {
-      background: linear-gradient(135deg, rgba(0,229,255,0.1), rgba(123,97,255,0.08));
-      border-color: rgba(0,229,255,0.2);
-      grid-column: span 2;
-    }
- 
-    .benefit-card.featured-green {
-      background: linear-gradient(135deg, rgba(0,255,148,0.08), rgba(0,229,255,0.04));
-      border-color: rgba(0,255,148,0.2);
-    }
- 
-    .benefit-icon-wrap {
-      width: 52px; height: 52px;
-      border-radius: 15px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem;
-      margin-bottom: 18px;
-      position: relative;
-      z-index: 1;
-    }
- 
-    .bi-cyan   { background: rgba(0,229,255,0.12);   box-shadow: 0 0 20px rgba(0,229,255,0.15); }
-    .bi-purple { background: rgba(123,97,255,0.12);  box-shadow: 0 0 20px rgba(123,97,255,0.15); }
-    .bi-green  { background: rgba(0,255,148,0.12);   box-shadow: 0 0 20px rgba(0,255,148,0.15); }
-    .bi-orange { background: rgba(255,165,0,0.12);   box-shadow: 0 0 20px rgba(255,165,0,0.15); }
-    .bi-pink   { background: rgba(255,100,180,0.12); box-shadow: 0 0 20px rgba(255,100,180,0.15); }
-    .bi-blue   { background: rgba(80,160,255,0.12);  box-shadow: 0 0 20px rgba(80,160,255,0.15); }
- 
-    .benefit-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      position: relative;
-      z-index: 1;
-    }
- 
-    .benefit-desc {
-      font-size: 0.86rem;
-      color: var(--muted);
-      line-height: 1.6;
-      position: relative;
-      z-index: 1;
-    }
- 
-    .benefit-card.featured .benefit-title { font-size: 1.15rem; }
-    .benefit-card.featured .benefit-desc  { font-size: 0.9rem; }
- 
-    /* ════════════════════════════════════════
-       HOW IT WORKS — iOS Steps
-    ════════════════════════════════════════ */
-    .how {
-      padding: 100px 60px;
-      background: linear-gradient(180deg, transparent, rgba(11,17,32,0.6), transparent);
-    }
- 
-    .how-inner { max-width: 900px; margin: 0 auto; }
- 
-    .how-header {
-      text-align: center;
-      margin-bottom: 16px;
-    }
- 
-    /* Banner superior de How */
-    .how-banner {
-      background: linear-gradient(135deg, rgba(123,97,255,0.08), rgba(0,229,255,0.06));
-      border: 1px solid rgba(123,97,255,0.2);
-      border-radius: 20px;
-      padding: 20px 28px;
-      margin-bottom: 50px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
- 
-    .how-banner-icon {
-      font-size: 1.5rem;
-      flex-shrink: 0;
-    }
- 
-    .how-banner strong { color: var(--accent2); }
- 
-    /* Steps verticales */
-    .steps-vertical {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      position: relative;
-    }
- 
-    .steps-vertical::before {
-      content: '';
-      position: absolute;
-      left: 27px;
-      top: 40px;
-      bottom: 40px;
-      width: 2px;
-      background: linear-gradient(180deg, var(--accent), var(--accent2), transparent);
-      opacity: 0.3;
-    }
- 
-    .step-row {
-      display: flex;
-      gap: 24px;
-      align-items: flex-start;
-      padding: 20px 0;
-      transition: all 0.3s;
-    }
- 
-    .step-row:hover .step-card { transform: translateX(6px); }
- 
-    .step-num-circle {
-      width: 56px; height: 56px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.1rem;
-      color: #060910;
-      flex-shrink: 0;
-      box-shadow: 0 0 20px rgba(0,229,255,0.3);
-      position: relative;
-      z-index: 1;
-    }
- 
-    .step-card {
-      flex: 1;
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 22px 26px;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
- 
-    .step-card-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
- 
-    .step-card-emoji { font-size: 1.4rem; }
- 
-    .step-card-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-    }
- 
-    .step-card-desc {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.65;
-    }
- 
-    /* Nota informativa */
-    .how-note {
-      margin-top: 30px;
-      background: rgba(255,165,0,0.06);
-      border: 1px solid rgba(255,165,0,0.2);
-      border-radius: 16px;
-      padding: 20px 24px;
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.65;
-    }
- 
-    .how-note-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 1px; }
-    .how-note strong { color: #ffa500; display: block; margin-bottom: 6px; }
- 
-    /* ════════════════════════════════════════
-       APP SECTION
-    ════════════════════════════════════════ */
-    .app-section {
-      padding: 100px 60px;
-      background: linear-gradient(180deg, transparent, rgba(11,17,32,0.9), transparent);
-    }
- 
-    .app-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
- 
-    .app-text .section-sub { margin-bottom: 40px; }
- 
-    .app-features {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-bottom: 40px;
-    }
- 
-    .app-feature {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
- 
-    .app-feature::before {
-      content: '✓';
-      width: 22px; height: 22px;
-      background: rgba(0,255,148,0.1);
-      border: 1px solid rgba(0,255,148,0.3);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--accent3);
-      font-size: 0.75rem;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
- 
-    .app-visual { display: flex; justify-content: center; }
- 
-    /* Phone Mockup */
-    .phone-mockup {
-      width: 240px; height: 480px;
-      background: linear-gradient(160deg, #111827, #0d1424);
-      border-radius: 36px;
-      border: 2px solid rgba(0,229,255,0.2);
-      box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(0,229,255,0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      animation: float 3s ease-in-out infinite;
-    }
- 
-    .phone-mockup::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 50%; transform: translateX(-50%);
-      width: 80px; height: 22px;
-      background: #060910;
-      border-radius: 0 0 14px 14px;
-    }
- 
-    .phone-screen-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      padding: 20px;
-      width: 100%;
-    }
- 
-    .phone-status {
-      font-size: 0.65rem;
-      color: var(--accent3);
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
- 
-    .phone-connected {
-      font-family: 'Syne', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--accent3);
-    }
- 
-    .phone-speed { display: flex; gap: 20px; }
- 
-    .phone-speed-val {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--accent);
-    }
- 
-    .phone-speed-label {
-      font-size: 0.6rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
- 
-    .phone-bar {
-      width: 80%; height: 4px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 4px;
-      overflow: hidden;
-    }
- 
-    .phone-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      border-radius: 4px;
-      animation: barFill 2s ease-in-out infinite alternate;
-    }
- 
-    .phone-btn {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: #060910;
-      border: none;
-      padding: 10px 30px;
-      border-radius: 25px;
-      font-weight: 700;
-      font-size: 0.8rem;
-      cursor: pointer;
-      font-family: 'Space Grotesk', sans-serif;
-    }
- 
-    /* ════════════════════════════════════════
-       SUPPORT SECTION
-    ════════════════════════════════════════ */
-    .support {
-      padding: 100px 60px;
-      background: linear-gradient(180deg, transparent, rgba(11,17,32,0.7), transparent);
-    }
- 
-    .support-inner { max-width: 1100px; margin: 0 auto; }
- 
-    .support-header {
-      text-align: center;
-      margin-bottom: 60px;
-    }
- 
-    .support-header .section-sub {
-      margin: 0 auto;
-      text-align: center;
-    }
- 
-    .support-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-bottom: 40px;
-    }
- 
-    .support-card {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 22px;
-      padding: 36px 28px;
-      text-align: center;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
- 
-    .support-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
- 
-    .support-card.email::before   { background: linear-gradient(135deg, rgba(0,229,255,0.06), transparent); }
-    .support-card.telegram::before{ background: linear-gradient(135deg, rgba(0,136,204,0.08), transparent); }
-    .support-card.privacy::before { background: linear-gradient(135deg, rgba(123,97,255,0.06), transparent); }
- 
-    .support-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.4);
-    }
- 
-    .support-card.email:hover   { border-color: rgba(0,229,255,0.3); }
-    .support-card.telegram:hover{ border-color: rgba(0,136,204,0.4); }
-    .support-card.privacy:hover { border-color: rgba(123,97,255,0.3); }
- 
-    .support-card:hover::before { opacity: 1; }
- 
-    .support-icon {
-      width: 64px; height: 64px;
-      border-radius: 18px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.8rem;
-      margin: 0 auto 20px;
-      position: relative;
-      z-index: 1;
-    }
- 
-    .si-email    { background: rgba(0,229,255,0.1);   border: 1px solid rgba(0,229,255,0.2); }
-    .si-telegram { background: rgba(0,136,204,0.1);   border: 1px solid rgba(0,136,204,0.25); }
-    .si-privacy  { background: rgba(123,97,255,0.1);  border: 1px solid rgba(123,97,255,0.2); }
- 
-    .support-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 8px;
-      position: relative;
-      z-index: 1;
-    }
- 
-    .support-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      position: relative;
-      z-index: 1;
-    }
- 
-    .support-value {
-      font-size: 0.88rem;
-      color: var(--accent);
-      font-weight: 500;
-      position: relative;
-      z-index: 1;
-    }
- 
-    .support-card.telegram .support-value { color: #29a8eb; }
-    .support-card.privacy  .support-value { color: var(--accent2); }
- 
-    .support-arrow {
-      display: inline-block;
-      margin-top: 14px;
-      font-size: 0.8rem;
-      color: var(--muted);
-      position: relative;
-      z-index: 1;
-      transition: all 0.2s;
-    }
- 
-    .support-card:hover .support-arrow {
-      color: var(--accent);
-      transform: translateX(4px);
-    }
- 
-    /* WhatsApp support banner */
-    .whatsapp-banner {
-      background: linear-gradient(135deg, rgba(37,211,102,0.08), rgba(0,229,255,0.04));
-      border: 1px solid rgba(37,211,102,0.2);
-      border-radius: 22px;
-      padding: 32px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
- 
-    .whatsapp-banner-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
- 
-    .whatsapp-banner-icon {
-      width: 52px; height: 52px;
-      background: rgba(37,211,102,0.12);
-      border: 1px solid rgba(37,211,102,0.25);
-      border-radius: 15px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem;
-    }
- 
-    .whatsapp-banner-text strong {
-      display: block;
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      margin-bottom: 4px;
-    }
- 
-    .whatsapp-banner-text span {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
- 
-    .btn-whatsapp {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #25d366;
-      color: white;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 0.9rem;
-      border: none;
-      padding: 12px 28px;
-      border-radius: 14px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s;
-      box-shadow: 0 4px 20px rgba(37,211,102,0.3);
-    }
- 
-    .btn-whatsapp:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(37,211,102,0.5);
-    }
- 
-    /* ════════════════════════════════════════
-       CTA FINAL
-    ════════════════════════════════════════ */
-    .cta-final { padding: 100px 60px; text-align: center; }
- 
-    .cta-card {
-      max-width: 700px;
-      margin: 0 auto;
-      background: linear-gradient(135deg, rgba(0,229,255,0.06), rgba(123,97,255,0.06));
-      border: 1px solid rgba(0,229,255,0.15);
-      border-radius: 30px;
-      padding: 70px 60px;
-      position: relative;
-      overflow: hidden;
-    }
- 
-    .cta-card::before {
-      content: '';
-      position: absolute;
-      top: -50%; left: 50%; transform: translateX(-50%);
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(0,229,255,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
- 
-    .cta-card .section-sub {
-      max-width: 420px;
-      margin: 0 auto 40px;
-      text-align: center;
-    }
- 
-    .cta-buttons-group {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
- 
-    /* ════════════════════════════════════════
-       FOOTER
-    ════════════════════════════════════════ */
-    footer {
-      border-top: 1px solid rgba(255,255,255,0.05);
-      padding: 40px 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
- 
-    .footer-logo { display: flex; align-items: center; gap: 10px; }
- 
-    .footer-logo-icon {
-      width: 30px; height: 30px;
-      border-radius: 8px;
-      object-fit: cover;
-    }
- 
-    .footer-logo-text {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1rem;
-    }
- 
-    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
- 
-    .footer-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: color 0.2s;
-    }
- 
-    .footer-links a:hover { color: var(--accent); }
- 
-    .footer-copy { color: var(--muted); font-size: 0.82rem; }
- 
-    /* ════════════════════════════════════════
-       WHATSAPP FLOTANTE
-    ════════════════════════════════════════ */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 28px; right: 28px;
-      z-index: 200;
-      width: 56px; height: 56px;
-      background: #25d366;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      text-decoration: none;
-      font-size: 1.5rem;
-      box-shadow: 0 8px 30px rgba(37,211,102,0.4);
-      transition: all 0.3s;
-      animation: float 3s ease-in-out infinite;
-    }
- 
-    .whatsapp-float:hover {
-      transform: scale(1.15);
-      box-shadow: 0 12px 40px rgba(37,211,102,0.6);
-    }
- 
-    /* ════════════════════════════════════════
-       SCROLL REVEAL
-    ════════════════════════════════════════ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
- 
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
- 
-    /* ════════════════════════════════════════
-       ANIMACIONES
-    ════════════════════════════════════════ */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
- 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.5; transform: scale(0.85); }
-    }
- 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-10px); }
-    }
- 
-    @keyframes barFill {
-      from { width: 60%; }
-      to   { width: 90%; }
-    }
- 
-    /* ════════════════════════════════════════
-       RESPONSIVE
-    ════════════════════════════════════════ */
-    @media (max-width: 960px) {
-      .navbar { padding: 16px 24px; }
-      nav a:not(.nav-cta) { display: none; }
- 
-      .benefits,
-      .how,
-      .app-section,
-      .support,
-      .cta-final { padding: 70px 24px; }
- 
-      .privacy-banner { flex-direction: column; padding: 36px 28px; }
-      .unlimited-banner { grid-template-columns: 1fr; padding: 36px 28px; }
- 
-      .benefits-grid { grid-template-columns: 1fr 1fr; }
-      .benefit-card.featured { grid-column: span 2; }
- 
-      .steps-vertical::before { display: none; }
- 
-      .app-inner { grid-template-columns: 1fr; gap: 50px; }
-      .app-visual { order: -1; }
- 
-      .support-grid { grid-template-columns: 1fr; }
- 
-      .whatsapp-banner { flex-direction: column; padding: 28px 24px; }
-      .whatsapp-banner-left { flex-direction: column; text-align: center; }
- 
-      .cta-card { padding: 50px 28px; }
- 
-      footer { padding: 30px 24px; flex-direction: column; text-align: center; }
-      footer .footer-links { justify-content: center; }
- 
-      .stats { flex-direction: column; align-items: center; }
-      .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); width: 100%; }
-      .stat-item:last-child { border-bottom: none; }
-    }
- 
-    @media (max-width: 500px) {
-      .benefits-grid { grid-template-columns: 1fr; }
-      .benefit-card.featured { grid-column: span 1; }
-    }
- 
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
- 
+
 <canvas id="network"></canvas>
- 
-<!-- ══ NAV ══ -->
+
+<!-- ══════════════════════════════════
+     NAVBAR
+══════════════════════════════════ -->
 <header class="navbar">
   <a class="nav-logo" href="#inicio">
-    <img class="nav-logo-icon" src="icon.png" alt="Netcol">
+    <img class="nav-logo-icon" src="icon.png" alt="Netcol VPN">
     <span class="nav-logo-text">Net<span>col</span></span>
   </a>
   <nav>
     <a href="#inicio">Inicio</a>
     <a href="#beneficios">Beneficios</a>
     <a href="#como">Cómo funciona</a>
+    <a href="#precios">Precios</a>
     <a href="#app">App</a>
     <a href="#soporte">Soporte</a>
     <a href="https://play.google.com/store/apps/details?id=com.netcol.vpn" target="_blank" class="nav-cta">Descargar</a>
   </nav>
 </header>
- 
-<!-- ══ HERO ══ -->
+
+<!-- ══════════════════════════════════
+     HERO
+══════════════════════════════════ -->
 <section class="hero" id="inicio">
   <div class="hero-inner">
+
     <div class="hero-badge">
-      <img src="icon.png" style="width:18px;height:18px;border-radius:4px;object-fit:cover;"> Disponible en Google Play
+      <img src="icon.png" style="width:18px;height:18px;border-radius:4px;object-fit:cover;" alt="Netcol">
+      Disponible en Google Play
     </div>
- 
+
     <h1>Internet <span class="gradient-text">Ilimitado<br>& Seguro</span></h1>
- 
+
     <p class="hero-sub">Navega sin bloqueos, sin límites y sin configuraciones. Conéctate en segundos desde cualquier lugar de Colombia.</p>
- 
+
     <div class="hero-counter">
       <div class="counter-dot"></div>
       <span><strong id="users">1,247</strong> usuarios conectados ahora mismo</span>
     </div>
- 
+
     <div class="cta-buttons">
       <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.netcol.vpn" target="_blank">
         ▶ Descargar en Google Play
@@ -1326,17 +58,20 @@ Copiar
         ↓ Ver beneficios
       </button>
     </div>
+
   </div>
 </section>
- 
-<!-- ══ STATS ══ -->
+
+<!-- ══════════════════════════════════
+     STATS
+══════════════════════════════════ -->
 <div class="stats reveal">
   <div class="stat-item">
-    <div class="stat-number">10K+</div>
+    <div class="stat-number">100K+</div>
     <div class="stat-label">Descargas activas</div>
   </div>
   <div class="stat-item">
-    <div class="stat-number">99.9%</div>
+    <div class="stat-number">80.9%</div>
     <div class="stat-label">Uptime garantizado</div>
   </div>
   <div class="stat-item">
@@ -1344,15 +79,17 @@ Copiar
     <div class="stat-label">Configuración requerida</div>
   </div>
   <div class="stat-item">
-    <div class="stat-number">4.8★</div>
+    <div class="stat-number">4.5★</div>
     <div class="stat-label">Calificación en Play Store</div>
   </div>
 </div>
- 
-<!-- ══ BENEFITS ══ -->
+
+<!-- ══════════════════════════════════
+     BENEFITS
+══════════════════════════════════ -->
 <section class="benefits" id="beneficios">
   <div class="benefits-inner">
- 
+
     <!-- Banner: Privacidad -->
     <div class="privacy-banner reveal">
       <div class="privacy-banner-left">
@@ -1380,7 +117,7 @@ Copiar
         </div>
       </div>
     </div>
- 
+
     <!-- Banner: Datos Ilimitados -->
     <div class="unlimited-banner reveal">
       <div class="unlimited-main">
@@ -1388,9 +125,8 @@ Copiar
         <div class="unlimited-title">Navega sin límites<br>a <span>precios bajos</span></div>
         <p class="unlimited-desc">Olvídate de quedarte sin datos. Con Netcol VPN tienes acceso ilimitado para streaming, redes sociales, juegos y mucho más, pagando muy poco.</p>
       </div>
- 
       <div class="unlimited-price-card">
-        <div class="price-tag">$bajo</div>
+        <div class="price-tag">Desde $10k</div>
         <div class="price-period">precio al mes</div>
         <div class="price-features">
           <div class="price-feature">Datos 100% ilimitados</div>
@@ -1399,7 +135,6 @@ Copiar
           <div class="price-feature">Todos los operadores CO</div>
         </div>
       </div>
- 
       <div class="unlimited-cta">
         <div class="unlimited-cta-text">¿Listo para<br>conectarte? 🚀</div>
         <div class="unlimited-cta-sub">Descarga y empieza en segundos</div>
@@ -1408,8 +143,8 @@ Copiar
         </a>
       </div>
     </div>
- 
-    <!-- Grid de beneficios iOS-style -->
+
+    <!-- Grid Beneficios -->
     <div class="benefits-header">
       <div>
         <div class="section-tag">Beneficios</div>
@@ -1417,7 +152,7 @@ Copiar
       </div>
       <p class="section-sub">Todo lo que necesitas para una conexión libre, rápida y segura.</p>
     </div>
- 
+
     <div class="benefits-grid">
       <div class="benefit-card featured reveal">
         <div class="benefit-icon-wrap bi-cyan">🚀</div>
@@ -1450,27 +185,29 @@ Copiar
         <p class="benefit-desc">No consume batería. Funciona en cualquier Android desde 5.0.</p>
       </div>
     </div>
- 
+
   </div>
 </section>
- 
-<!-- ══ HOW IT WORKS ══ -->
+
+<!-- ══════════════════════════════════
+     CÓMO FUNCIONA
+══════════════════════════════════ -->
 <section class="how" id="como">
   <div class="how-inner">
- 
+
     <div class="how-header reveal">
       <div class="section-tag">Cómo se usa</div>
       <h2 class="section-title">¿CÓMO SE USA?</h2>
-      <p class="section-sub" style="margin: 0 auto 0;">Sigue estos pasos y estarás navegando libre en menos de un minuto.</p>
+      <p class="section-sub" style="margin:0 auto;">Sigue estos pasos y estarás navegando libre en menos de un minuto.</p>
     </div>
- 
+
     <div class="how-banner reveal">
       <span class="how-banner-icon">💡</span>
       <span><strong>Importante:</strong> Antes de conectarte, asegúrate de tener la lista de servidores actualizada para garantizar la mejor conexión disponible.</span>
     </div>
- 
+
     <div class="steps-vertical">
- 
+
       <div class="step-row reveal">
         <div class="step-num-circle">1</div>
         <div class="step-card">
@@ -1481,7 +218,7 @@ Copiar
           <p class="step-card-desc">Toca el <strong>logo de la app</strong> desde el menú para actualizar la lista de servidores disponibles. Este paso es clave para tener la mejor conexión.</p>
         </div>
       </div>
- 
+
       <div class="step-row reveal">
         <div class="step-num-circle">2</div>
         <div class="step-card">
@@ -1492,7 +229,7 @@ Copiar
           <p class="step-card-desc">En la <strong>pantalla principal</strong> de la app verás los servidores disponibles. Elige el que prefieras según tu ubicación o velocidad.</p>
         </div>
       </div>
- 
+
       <div class="step-row reveal">
         <div class="step-num-circle">3</div>
         <div class="step-card">
@@ -1503,7 +240,7 @@ Copiar
           <p class="step-card-desc">Presiona el botón <strong>"Agregar + tiempo"</strong> y mira el anuncio completo para añadir tiempo adicional a tu conexión. ¡Es gratis!</p>
         </div>
       </div>
- 
+
       <div class="step-row reveal">
         <div class="step-num-circle">4</div>
         <div class="step-card">
@@ -1514,10 +251,9 @@ Copiar
           <p class="step-card-desc">Presiona el botón <strong>Conectar</strong> y listo. Ya puedes navegar sin límites ni restricciones.</p>
         </div>
       </div>
- 
+
     </div>
- 
-    <!-- Nota -->
+
     <div class="how-note reveal">
       <span class="how-note-icon">⚠️</span>
       <div>
@@ -1525,18 +261,156 @@ Copiar
         Si por algún motivo rechazaste la actualización, toca el logo para actualizar. Si no te aparece la actualización, puedes usar la opción <strong>"Restablecer servidores"</strong> desde el menú de la app.
       </div>
     </div>
- 
+
   </div>
 </section>
- 
-<!-- ══ APP SECTION ══ -->
+
+<!-- ══════════════════════════════════
+     PRECIOS
+══════════════════════════════════ -->
+<section class="pricing" id="precios">
+  <div class="pricing-inner">
+
+    <div class="pricing-header reveal">
+      <div class="section-tag">Planes & Precios</div>
+      <h2 class="section-title">Elige tu plan<br>ideal 🚀</h2>
+      <p class="section-sub">Precios pensados para Colombia. Sin letra pequeña, sin sorpresas.</p>
+      <div class="pricing-badge">
+        <div class="pricing-badge-dot"></div>
+        Todos los planes son mensuales · Pago único
+      </div>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- Plan Starter 10GB -->
+      <div class="plan-card reveal">
+        <div class="plan-badge-simple">Básico</div>
+        <div class="plan-name">Plan Starter</div>
+        <p class="plan-desc">Ideal para uso ocasional y navegación diaria básica.</p>
+        <span class="plan-data-highlight">10 GB</span>
+        <div class="plan-price-wrap">
+          <span class="plan-currency">$</span>
+          <span class="plan-price">10k</span>
+        </div>
+        <div class="plan-period">COP / mes · IVA incluido</div>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feature">
+            <div class="plan-feature-check">✓</div>
+            10 GB de datos mensuales
+          </div>
+          <div class="plan-feature">
+            <div class="plan-feature-check">✓</div>
+            Conexión segura y cifrada
+          </div>
+          <div class="plan-feature">
+            <div class="plan-feature-check">✓</div>
+            Todos los operadores CO
+          </div>
+          <div class="plan-feature">
+            <div class="plan-feature-check">✓</div>
+            Soporte por WhatsApp
+          </div>
+        </div>
+        <a class="plan-btn plan-btn-outline" href="https://wa.me/57XXXXXXXXXX" target="_blank">
+          Comprar plan →
+        </a>
+      </div>
+
+      <!-- Plan Pro 30GB — DESTACADO -->
+      <div class="plan-card featured-plan reveal">
+        <div class="plan-badge">⭐ Más Popular</div>
+        <div class="plan-name">Plan Pro</div>
+        <p class="plan-desc">El favorito de nuestros usuarios. Más datos, más libertad.</p>
+        <span class="plan-data-highlight">30 GB</span>
+        <div class="plan-price-wrap">
+          <span class="plan-currency">$</span>
+          <span class="plan-price">30k</span>
+        </div>
+        <div class="plan-period">COP / mes · IVA incluido</div>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feature">
+            <div class="plan-feature-check">✓</div>
+            30 GB de datos mensuales
+          </div>
+          <div class="plan-feature">
+            <div class="plan-feature-check">✓</div>
+            Alta velocidad garantizada
+          </div>
+          <div class="plan-feature">
+            <div class="plan-feature-check">✓</div>
+            Streaming HD sin cortes
+          </div>
+          <div class="plan-feature">
+            <div class="plan-feature-check">✓</div>
+            Conexión segura y cifrada
+          </div>
+          <div class="plan-feature">
+            <div class="plan-feature-check">✓</div>
+            Soporte prioritario 24/7
+          </div>
+        </div>
+        <a class="plan-btn plan-btn-solid" href="https://wa.me/57XXXXXXXXXX" target="_blank">
+          ▶ Comprar ahora
+        </a>
+      </div>
+
+      <!-- Plan Plus 20GB -->
+      <div class="plan-card reveal">
+        <div class="plan-badge-simple">Estándar</div>
+        <div class="plan-name">Plan Plus</div>
+        <p class="plan-desc">Más datos para redes sociales, YouTube y videollamadas.</p>
+        <span class="plan-data-highlight">20 GB</span>
+        <div class="plan-price-wrap">
+          <span class="plan-currency">$</span>
+          <span class="plan-price">20k</span>
+        </div>
+        <div class="plan-period">COP / mes · IVA incluido</div>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feature">
+            <div class="plan-feature-check">✓</div>
+            20 GB de datos mensuales
+          </div>
+          <div class="plan-feature">
+            <div class="plan-feature-check">✓</div>
+            Alta velocidad de conexión
+          </div>
+          <div class="plan-feature">
+            <div class="plan-feature-check">✓</div>
+            Todos los operadores CO
+          </div>
+          <div class="plan-feature">
+            <div class="plan-feature-check">✓</div>
+            Soporte por WhatsApp
+          </div>
+        </div>
+        <a class="plan-btn plan-btn-outline" href="https://wa.me/57XXXXXXXXXX" target="_blank">
+          Comprar plan →
+        </a>
+      </div>
+
+    </div>
+
+    <div class="pricing-note reveal">
+      🔒 Pago seguro · 💬 Soporte inmediato por WhatsApp · 🇨🇴 Hecho para Colombia
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     APP
+══════════════════════════════════ -->
 <section class="app-section" id="app">
   <div class="app-inner">
+
     <div class="app-text reveal">
       <div class="section-tag">La App</div>
       <h2 class="section-title">Diseñada para<br>ser simple</h2>
       <p class="section-sub">Sin menús complicados ni configuraciones técnicas. NETCOL fue creada pensando en el usuario colombiano.</p>
- 
       <div class="app-features">
         <div class="app-feature">Interfaz limpia y fácil de usar</div>
         <div class="app-feature">Conexión automática al abrir</div>
@@ -1544,12 +418,11 @@ Copiar
         <div class="app-feature">Compatible con Android 5.0 en adelante</div>
         <div class="app-feature">Actualizaciones automáticas incluidas</div>
       </div>
- 
       <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.netcol.vpn" target="_blank">
         ▶ Descargar en Google Play
       </a>
     </div>
- 
+
     <div class="app-visual reveal">
       <div class="phone-mockup">
         <div class="phone-screen-content">
@@ -1571,22 +444,23 @@ Copiar
         </div>
       </div>
     </div>
+
   </div>
 </section>
- 
-<!-- ══ SOPORTE ══ -->
+
+<!-- ══════════════════════════════════
+     SOPORTE
+══════════════════════════════════ -->
 <section class="support" id="soporte">
   <div class="support-inner">
- 
+
     <div class="support-header reveal">
       <div class="section-tag">Soporte</div>
       <h2 class="section-title">¿Necesitas ayuda?</h2>
       <p class="section-sub">Estamos aquí para ti. Contáctanos por el canal que prefieras y te respondemos rápido.</p>
     </div>
- 
+
     <div class="support-grid">
- 
-      <!-- Correo -->
       <a class="support-card email reveal" href="mailto:support@netcolvpn.com">
         <div class="support-icon si-email">✉️</div>
         <div class="support-label">Correo electrónico</div>
@@ -1594,8 +468,6 @@ Copiar
         <div class="support-value">support@netcolvpn.com</div>
         <span class="support-arrow">Enviar correo →</span>
       </a>
- 
-      <!-- Telegram -->
       <a class="support-card telegram reveal" href="https://t.me/netcolvpn" target="_blank">
         <div class="support-icon si-telegram">✈️</div>
         <div class="support-label">Comunidad oficial</div>
@@ -1603,8 +475,6 @@ Copiar
         <div class="support-value">t.me/netcolvpn</div>
         <span class="support-arrow">Unirse al canal →</span>
       </a>
- 
-      <!-- Privacidad -->
       <a class="support-card privacy reveal" href="https://www.netcolvpn.com/p/privacy.html" target="_blank">
         <div class="support-icon si-privacy">📄</div>
         <div class="support-label">Documentos legales</div>
@@ -1612,10 +482,8 @@ Copiar
         <div class="support-value">netcolvpn.com/privacy</div>
         <span class="support-arrow">Leer política →</span>
       </a>
- 
     </div>
- 
-    <!-- WhatsApp Banner -->
+
     <div class="whatsapp-banner reveal">
       <div class="whatsapp-banner-left">
         <div class="whatsapp-banner-icon">💬</div>
@@ -1628,11 +496,13 @@ Copiar
         💬 Chatear por WhatsApp
       </a>
     </div>
- 
+
   </div>
 </section>
- 
-<!-- ══ CTA FINAL ══ -->
+
+<!-- ══════════════════════════════════
+     CTA FINAL
+══════════════════════════════════ -->
 <section class="cta-final">
   <div class="cta-card reveal">
     <div class="section-tag">Empieza hoy</div>
@@ -1648,129 +518,32 @@ Copiar
     </div>
   </div>
 </section>
- 
-<!-- ══ WHATSAPP FLOTANTE ══ -->
-<a href="https://wa.me/57XXXXXXXXXX" class="whatsapp-float" target="_blank" title="WhatsApp Soporte">💬</a>
- 
-<!-- ══ FOOTER ══ -->
+
+<!-- ══════════════════════════════════
+     WHATSAPP FLOTANTE
+══════════════════════════════════ -->
+<a href="https://wa.me/57XXXXXXXXXX" class="whatsapp-float" target="_blank" title="Soporte WhatsApp">💬</a>
+
+<!-- ══════════════════════════════════
+     FOOTER
+══════════════════════════════════ -->
 <footer>
   <div class="footer-logo">
-    <img class="footer-logo-icon" src="icon.png" alt="Netcol">
+    <img class="footer-logo-icon" src="icon.png" alt="Netcol VPN">
     <span class="footer-logo-text">Netcol VPN</span>
   </div>
   <div class="footer-links">
     <a href="#inicio">Inicio</a>
     <a href="#beneficios">Beneficios</a>
     <a href="#como">Cómo funciona</a>
+    <a href="#precios">Precios</a>
     <a href="#app">App</a>
     <a href="#soporte">Soporte</a>
     <a href="https://www.netcolvpn.com/p/privacy.html" target="_blank">Privacidad</a>
   </div>
   <span class="footer-copy">© 2026 Netcol VPN · Hecho en Colombia 🇨🇴</span>
 </footer>
- 
-<!-- ══════════════════════════════════════════
-     SCRIPTS
-══════════════════════════════════════════ -->
-<script>
- 
-  /* ── CANVAS NETWORK ── */
-  const canvas = document.getElementById("network");
-  const ctx    = canvas.getContext("2d");
- 
-  function resize() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener("resize", resize);
- 
-  const COLORS = ["#00e5ff", "#7b61ff", "#00ff94"];
-  let particles = [];
- 
-  for (let i = 0; i < 80; i++) {
-    particles.push({
-      x:     Math.random() * canvas.width,
-      y:     Math.random() * canvas.height,
-      vx:    (Math.random() - 0.5) * 0.6,
-      vy:    (Math.random() - 0.5) * 0.6,
-      r:     Math.random() * 1.5 + 1,
-      color: COLORS[Math.floor(Math.random() * COLORS.length)]
-    });
-  }
- 
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
- 
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx   = particles[i].x - particles[j].x;
-        const dy   = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 130) {
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(0,229,255,${0.12 * (1 - dist / 130)})`;
-          ctx.lineWidth   = 0.8;
-          ctx.stroke();
-        }
-      }
-    }
- 
-    particles.forEach(p => {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle  = p.color + "cc";
-      ctx.shadowColor = p.color;
-      ctx.shadowBlur  = 6;
-      ctx.fill();
-      ctx.shadowBlur  = 0;
- 
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
-      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-    });
- 
-    requestAnimationFrame(draw);
-  }
-  draw();
- 
-  /* ── CONTADOR DE USUARIOS ── */
-  let users = 1247;
-  setInterval(() => {
-    const change = Math.floor(Math.random() * 15);
-    users += Math.random() > 0.5 ? change : -change;
-    if (users < 1000) users = 1000;
-    document.getElementById("users").textContent = users.toLocaleString("es-CO");
-  }, 2000);
- 
-  /* ── SCROLL REVEAL ── */
-  const reveals  = document.querySelectorAll(".reveal");
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add("visible"), i * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
- 
-  reveals.forEach(el => observer.observe(el));
- 
-  /* ── NAVBAR SHRINK ── */
-  window.addEventListener("scroll", () => {
-    const nav = document.querySelector(".navbar");
-    if (window.scrollY > 50) {
-      nav.style.padding    = "12px 60px";
-      nav.style.background = "rgba(6,9,16,0.95)";
-    } else {
-      nav.style.padding    = "18px 60px";
-      nav.style.background = "rgba(6,9,16,0.7)";
-    }
-  });
- 
-</script>
+
+<script src="script.js"></script>
 </body>
 </html>
